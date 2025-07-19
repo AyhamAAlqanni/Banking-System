@@ -209,6 +209,33 @@ def deposit_money():
     except ValueError:
 
         print("ERROR: Entered a Non Integer Value!")
+
+
+# A function that deals with account inquiry.
+def account_inquiry():
+
+    try:
+
+        account_number = int(input("Enter An Account Number: "))
+
+        account_number_search = DataBase_Functions.get_user(account_number)
+
+        if account_number_search != None:
+
+            print(f"Customer Name: {account_number_search[1]} {account_number_search[2]}")
+
+            print(f"Account Status: {account_number_search[3]}")
+
+            print(f"Account Balance: ${account_number_search[4]}")
+
+        else:
+
+            print("There is No Account With This Number!")
+            print("RESULT: Failed To Retrieve Account Information.")
+
+    except ValueError:
+
+        print("ERROR: Entered a Non Integer Value!")
     
 
 # Main Function.
@@ -257,6 +284,14 @@ def main():
             print("OPTION 4: Deposit Money")
 
             deposit_money()
+
+            print("************************************************************")
+
+        elif user_input == 5:
+
+            print("OPTION 5: Account Inquiry")
+
+            account_inquiry()
 
             print("************************************************************")
 
