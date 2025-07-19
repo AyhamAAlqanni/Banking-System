@@ -12,8 +12,9 @@ TABLES = {}
 # Adds a table definition for a table named users.
 TABLES["users"] = (
     "CREATE TABLE `users` ("
-    "`account_number` INT(11) NOT NULL AUTO_INCREMENT,"
-    "`name` VARCHAR(250) NOT NULL,"
+    "`account_number` INT(11) NOT NULL,"
+    "`first_name` VARCHAR(250) NOT NULL,"
+    "`last_name` VARCHAR(250) NOT NULL,"
     "`status` VARCHAR(250) NOT NULL,"
     "`balance` FLOAT NOT NULL,"
     "`created` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,"
