@@ -7,8 +7,7 @@ config = {
     "password": "bank2025",         # The password for the user. 
     "host": "localhost",            # This specifies where the MySQL server is located. localhost means it's running on 
                                     # the same machine as the Python script.
-    #"database": "example"           # This specifies the name of the database you want to connect to. 
-                                    # NOTE: This line is added after creating the database.
+    "database": "bankDB"            # This specifies the name of the database.
 }
 
 
