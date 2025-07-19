@@ -140,15 +140,15 @@ def withdraw_money():
 
                     total_after_withdraw = account_number_search[4] - withdraw_amount
 
-                    DataBase_Functions.add_transaction(account_number, "Withdraw", total_after_withdraw)
+                    DataBase_Functions.add_transaction(account_number, "Withdraw", withdraw_amount)
 
                     DataBase_Functions.update_user_balance(account_number, total_after_withdraw)
 
                     account_number_search = DataBase_Functions.get_user(account_number)
 
-                    print(f"New Account Balance: ${account_number_search[4]}")
-
                     print("RESULT: Transaction Completed.")
+
+                    print(f"New Account Balance: ${account_number_search[4]}")
 
                 else:
 
@@ -159,6 +159,52 @@ def withdraw_money():
 
             print("There is No Account With This Number!")
             print("RESULT: Failed To Withdraw Money.")
+
+    except ValueError:
+
+        print("ERROR: Entered a Non Integer Value!")
+
+
+# A function that deals with money deposit.
+def deposit_money():
+
+    try:
+
+        account_number = int(input("Enter An Account Number: "))
+
+        account_number_search = DataBase_Functions.get_user(account_number)
+
+        if account_number_search != None:
+
+            print(f"Customer Name: {account_number_search[1]} {account_number_search[2]}")
+
+            if account_number_search[3] == "Closed":
+
+                print("The Account is Closed!")
+                print("RESULT: Failed To Deposit Money.")
+
+            else:
+
+                print(f"Account Balance: ${account_number_search[4]}")
+
+                deposit_amount = float(input("Enter The Amount To Deposit: "))
+
+                total_after_deposit = account_number_search[4] + deposit_amount
+
+                DataBase_Functions.add_transaction(account_number, "Deposit", deposit_amount)
+
+                DataBase_Functions.update_user_balance(account_number, total_after_deposit)
+
+                account_number_search = DataBase_Functions.get_user(account_number)
+
+                print("RESULT: Transaction Completed.")
+
+                print(f"New Account Balance: ${account_number_search[4]}")
+
+        else:
+
+            print("There is No Account With This Number!")
+            print("RESULT: Failed To Deposit Money.")
 
     except ValueError:
 
@@ -203,6 +249,14 @@ def main():
             print("OPTION 3: Withdraw Money")
 
             withdraw_money()
+
+            print("************************************************************")
+
+        elif user_input == 4:
+
+            print("OPTION 4: Deposit Money")
+
+            deposit_money()
 
             print("************************************************************")
 
