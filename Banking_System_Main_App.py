@@ -54,7 +54,7 @@ def open_account():
 
         account_number = int(input("Enter An Account Number: "))
 
-        if account_number == DataBase_Functions.get_user(account_number):
+        if account_number == DataBase_Functions.get_user_id(account_number):
 
             print("There is An Account Already in The System With That ID!")
             print("RESULT: Failed To Open An Account.")
@@ -67,6 +67,45 @@ def open_account():
             DataBase_Functions.add_user(account_number, first_name.capitalize(), last_name.capitalize(), "Active", 0)
 
             print("RESULT: Account Has Been Opened.")
+
+    except ValueError:
+
+        print("ERROR: Entered a Non Integer Value!")
+
+
+# A function that deals with deleting an account.
+def close_account():
+
+    try:
+
+        account_number = int(input("Enter An Account Number: "))
+
+        account_number_search = DataBase_Functions.get_user(account_number)
+
+        if account_number_search != None:
+
+            print(f"Customer Name: {account_number_search[1]} {account_number_search[2]}")
+
+            if account_number_search[4] > 0:
+
+                print("The Account Has Balance, Cannot Be Closed!")
+                print("RESULT: Failed To Delete The Account.")
+
+            elif account_number_search[3] == "Closed":
+
+                print("The Account is Already Closed!")
+                print("RESULT: Failed To Delete The Account.")
+
+            elif account_number_search[3] == "Active" and account_number_search[4] <= 0:
+
+                DataBase_Functions.update_user(account_number, "Closed")
+
+                print("RESULT: Account Has Been Closed.")
+
+        else:
+
+            print("There is No Account With This Number!")
+            print("RESULT: Failed To Delete The Account.")
 
     except ValueError:
 
@@ -95,6 +134,14 @@ def main():
             print("OPTION 1: Open An Account")
 
             open_account()
+
+            print("************************************************************")
+
+        elif user_input == 2:
+
+            print("OPTION 2: Delete An Account")
+
+            close_account()
 
             print("************************************************************")
 
