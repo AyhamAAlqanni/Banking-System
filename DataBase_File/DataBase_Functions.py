@@ -21,7 +21,23 @@ def add_user(account_number, first_name, last_name, status, balance):
         
     except Error as err:
 
-        print(f"Error adding user: {err}")
+        print(f"Error Adding User: {err}")
+
+
+# Purpose: Adds a new row to the transactions table.
+def add_transaction(user_account_number, transaction_type, amount):
+
+    try:
+
+        sql = "INSERT INTO transactions(user_account_number, transaction_type, amount) VALUES (%s, %s, %s)"
+
+        cursor.execute(sql, (user_account_number, transaction_type, amount))
+
+        database.commit()
+        
+    except Error as err:
+
+        print(f"Error Adding Transaction: {err}")
 
 
 # Purpose: Fetches all users entries, ordered by newest first.
@@ -64,7 +80,7 @@ def get_user_id(account_number):
 
     except Error as err:
 
-        print(f"Error Getting Users: {err}")
+        print(f"Error Getting User ID: {err}")
 
 
 # Purpose: Retrieves a single user intire information by account number.
@@ -85,14 +101,23 @@ def get_user(account_number):
 
     except Error as err:
 
-        print(f"Error Getting Users: {err}")
+        print(f"Error Getting User: {err}")
 
 
-# Purpose: Updates a specific user by its account number.
-def update_user(account_number, status):
+# Purpose: Updates user's status by its account number.
+def update_user_status(account_number, status):
 
     sql = ("UPDATE users SET status = %s WHERE account_number = %s")
 
     cursor.execute(sql, (status, account_number))
+
+    database.commit()
+
+# Purpose: Updates user's balance by its account number.
+def update_user_balance(account_number, balance):
+
+    sql = ("UPDATE users SET balance = %s WHERE account_number = %s")
+
+    cursor.execute(sql, (balance, account_number))
 
     database.commit()

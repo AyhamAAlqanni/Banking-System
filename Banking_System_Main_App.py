@@ -98,7 +98,7 @@ def close_account():
 
             elif account_number_search[3] == "Active" and account_number_search[4] <= 0:
 
-                DataBase_Functions.update_user(account_number, "Closed")
+                DataBase_Functions.update_user_status(account_number, "Closed")
 
                 print("RESULT: Account Has Been Closed.")
 
@@ -106,6 +106,59 @@ def close_account():
 
             print("There is No Account With This Number!")
             print("RESULT: Failed To Delete The Account.")
+
+    except ValueError:
+
+        print("ERROR: Entered a Non Integer Value!")
+
+
+# A function that deals with money withdraw.
+def withdraw_money():
+
+    try:
+
+        account_number = int(input("Enter An Account Number: "))
+
+        account_number_search = DataBase_Functions.get_user(account_number)
+
+        if account_number_search != None:
+
+            print(f"Customer Name: {account_number_search[1]} {account_number_search[2]}")
+
+            if account_number_search[3] == "Closed":
+
+                print("The Account is Closed!")
+                print("RESULT: Failed To Withdraw Money.")
+
+            else:
+
+                print(f"Account Balance: ${account_number_search[4]}")
+
+                withdraw_amount = float(input("Enter The Amount To Withdraw: "))
+
+                if withdraw_amount <= account_number_search[4]:
+
+                    total_after_withdraw = account_number_search[4] - withdraw_amount
+
+                    DataBase_Functions.add_transaction(account_number, "Withdraw", total_after_withdraw)
+
+                    DataBase_Functions.update_user_balance(account_number, total_after_withdraw)
+
+                    account_number_search = DataBase_Functions.get_user(account_number)
+
+                    print(f"New Account Balance: ${account_number_search[4]}")
+
+                    print("RESULT: Transaction Completed.")
+
+                else:
+
+                    print("Insuffcient Fund!")
+                    print("RESULT: Failed To Withdraw Money.")
+
+        else:
+
+            print("There is No Account With This Number!")
+            print("RESULT: Failed To Withdraw Money.")
 
     except ValueError:
 
@@ -142,6 +195,14 @@ def main():
             print("OPTION 2: Delete An Account")
 
             close_account()
+
+            print("************************************************************")
+
+        elif user_input == 3:
+
+            print("OPTION 3: Withdraw Money")
+
+            withdraw_money()
 
             print("************************************************************")
 
