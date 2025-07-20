@@ -236,6 +236,52 @@ def account_inquiry():
     except ValueError:
 
         print("ERROR: Entered a Non Integer Value!")
+
+
+# A function that deals with account transactions.
+def account_transactions():
+
+    try:
+
+        account_number = int(input("Enter An Account Number: "))
+
+        account_number_search = DataBase_Functions.get_user(account_number)
+
+        if account_number_search != None:
+
+            print(f"Customer Name: {account_number_search[1]} {account_number_search[2]}")
+
+            print("Transactions History:")
+
+            transactions = DataBase_Functions.get_user_transactions(account_number)
+
+            if transactions == []:
+
+                print("No Transactions History!")
+
+            else:
+
+                list_number = 1
+
+                print(f"{"Transaction":<15}{"Transaction Type":<20}{"Amount":<10}{"Date/Time"}")
+
+                for transaction in transactions:
+
+                    # Extracting and formatting the datetime
+                    formatted_datetime = transaction[4].strftime('%m-%d-%y %H:%M:%S')
+
+                    print(f"{list_number}{".":<16} {transaction[2]:<16} ${transaction[3]:<9}{formatted_datetime}")
+
+                    list_number += 1
+
+        else:
+
+            print("There is No Account With This Number!")
+            print("RESULT: Failed To Retrieve Account Transactions.")
+
+    except ValueError:
+
+        print("ERROR: Entered a Non Integer Value!")
     
 
 # Main Function.
@@ -292,6 +338,14 @@ def main():
             print("OPTION 5: Account Inquiry")
 
             account_inquiry()
+
+            print("************************************************************")
+
+        elif user_input == 6:
+
+            print("OPTION 6: Account Transactions")
+
+            account_transactions()
 
             print("************************************************************")
 
