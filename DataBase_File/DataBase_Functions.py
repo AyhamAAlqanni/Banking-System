@@ -83,6 +83,27 @@ def get_user_id(account_number):
         print(f"Error Getting User ID: {err}")
 
 
+# Purpose: Retrieves a user's transactions by account number.
+# fetchone() returns a single row (as a tuple).
+def get_user_transactions(account_number):
+
+    try:
+
+        sql = ("SELECT * FROM transactions WHERE user_account_number = %s ORDER BY transaction_date ASC")
+
+        cursor.execute(sql, (account_number,))
+
+        result = cursor.fetchall()
+
+        if result != None:
+
+            return result
+
+    except Error as err:
+
+        print(f"Error Getting Transactions: {err}")
+
+
 # Purpose: Retrieves a single user intire information by account number.
 # fetchone() returns a single row (as a tuple).
 def get_user(account_number):
