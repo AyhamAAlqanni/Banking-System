@@ -47,15 +47,13 @@ def get_users():
 
     try:
 
-        sql = ("SELECT * FROM users ORDER BY created DESC")
+        sql = ("SELECT * FROM users ORDER BY balance DESC")
 
         cursor.execute(sql)
 
         result = cursor.fetchall()
 
-        for row in result:
-
-            return row
+        return list(result)
 
     except Error as err:
 

@@ -1,6 +1,5 @@
 
 from DataBase_File import DataBase_Functions
-from Classes.User_Class import User
 
 
 # A function that displays the menu to the user.
@@ -282,12 +281,36 @@ def account_transactions():
     except ValueError:
 
         print("ERROR: Entered a Non Integer Value!")
+
+
+# A function that deals with displaying top 5 accounts in terms of balance.
+def top_five_accounts():
+
+    users = DataBase_Functions.get_users()
+
+    print(users)
+
+    list_number = 1
+
+    print(f"{"   Account Number":<20}{"Customer Name":<20}{"Balance"}")
+
+    for user in users:
+
+        if list_number <= 5:
+
+            print(f"{list_number}{".":<6} {user[0]:<12} {user[1]} {user[2]:<13} ${user[4]}")
+
+        else:
+
+            break
+
+        list_number += 1
     
 
 # Main Function.
 def main():
 
-    #users_dictionary = {}
+    print("Welcome To The Banking System".upper())
 
     user_input = menu_display()
 
@@ -349,9 +372,19 @@ def main():
 
             print("************************************************************")
 
+        elif user_input == 7:
+
+            print("OPTION 7: Top Five Accounts")
+
+            top_five_accounts()
+
+            print("************************************************************")
+
         user_input = menu_display()
 
         print("************************************************************")
+
+    print("Exited Program.")
 
 
 # Calling Main Function.
