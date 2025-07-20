@@ -267,6 +267,7 @@ def account_transactions():
                 for transaction in transactions:
 
                     # Extracting and formatting the datetime
+                    # NOTE: If I want to use --> %I:%M %p → 06:20 PM (12-hour format)
                     formatted_datetime = transaction[4].strftime('%m-%d-%y %H:%M:%S')
 
                     print(f"{list_number}{".":<16} {transaction[2]:<16} ${transaction[3]:<9}{formatted_datetime}")
